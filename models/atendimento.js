@@ -56,15 +56,47 @@ class Atendimento {
     }
 
     detalhes(id, res) {
-        const sql = `SELECT * FROM atendimentos WHERE id = ${id}`
+        const sql = `SELECT * FROM atendimentos WHERE id = ?`
 
-        conexao.query(sql, (erro, results) => {
+        conexao.query(sql, id, (erro, results) => {
+            if (erro) {
+                res.status(400).json(erro)
+                return
+            }
+            if (results.length === 0) {
+                res.status(404).send()
+                return
+            }
+
+            res.json(results[0])
+        })
+    }
+
+    altera(id, valores, res) {
+        const data = moment(valores.data, 'DD/MM/YYYY').format('YYYY-MM-DD HH:MM:SS')
+        const sql = 'UPDATE atendimentos SET ? WHERE id = ?'
+        const valoresDatado = {...valores, data}
+
+        conexao.query(sql, [valoresDatado, id], (erro, results) => {
             if (erro) {
                 res.status(400).json(erro)
                 return
             }
 
-            res.json(results[0])
+            res.json(results)
+        })
+    }
+
+    remove(id, res) {
+        const sql = 'DELETE FROM atendimentos WHERE id = ?'
+
+        conexao.query(sql, id, (erro, results) => {
+            if (erro) {
+                res.status(400).json(erro)
+                return
+            }
+
+            res.json(results)
         })
     }
 }
