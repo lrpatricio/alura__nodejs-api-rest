@@ -1,5 +1,5 @@
-const conexao = require('../infraestrutura/conexao')
-const upload = require('../arquivos/upload')
+const conexao = require('../infraestrutura/database/conexao')
+const upload = require('../infraestrutura/arquivos/upload')
 
 class Pet {
     adiciona(pet, res) {
@@ -9,7 +9,7 @@ class Pet {
             if(erro)
             {
                 res.status(400).json({erro})
-                return;
+                return
             }
 
             const petNew = { ...pet, imagem: destination }

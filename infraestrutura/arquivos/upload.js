@@ -4,8 +4,8 @@ const path = require('path')
 // Stream leitura e escrita de arquivo de maneira sincrona
 // fs.readFile('./assets/img/shitzu.png', (erro, buffer) => {
 //     console.log('Imagem foi bufferizada')
-//     console.log(erro);
-//     console.log(buffer);
+//     console.log(erro)
+//     console.log(buffer)
 //
 //     fs.writeFile('./assets/shitzu.png', buffer, erro => {
 //         console.log('Imagem foi escrita')
