@@ -1,44 +1,38 @@
-const Atendimento = require('../models/atendimento')
-const axios = require('axios')
+const Atendimento = require('../models/atendimentos')
 
 module.exports = app => {
-    app.get('/atendimentos', (req, res) => Atendimento.lista()
-        .then((results) => res.json(results))
-        .catch(err => res.status(400).json(err))
-    )
+    app.get('/atendimentos', (req, res) => {
+        Atendimento.lista()
+            .then(resultados => res.json(resultados))
+            .catch(erros => res.status(400).json(erros))
+    })
 
-    app.get('/atendimentos/:id', (req, res) => Atendimento.detalhes(parseInt(req.params.id))
-        .then(results => {
-            if (results.length === 0) {
-                res.status(404).send()
-                return
-            }
+    app.get('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
 
-            const atendimento = results[0]
-            const cpf = atendimento.cliente
+        Atendimento.buscaPorId(id, res)
+    })
 
-            axios.get(`http://localhost:8082/${cpf}`)
-                .then((response) => response.data)
-                .catch(error => null)
-                .then((cliente) => res.json({...atendimento, cliente}))
-        })
-        .catch(err => res.status(400).json(err))
-    )
+    app.post('/atendimentos', (req, res) => {
+        const atendimento = req.body
 
-    app.post('/atendimentos', (req, res) => Atendimento.adiciona(req.body)
-        .then(atendimentoCadastrado => res.status(201).json(atendimentoCadastrado))
-        .catch(err => res.status(400).json(err))
-    )
+        Atendimento.adiciona(atendimento)
+            .then(atendimentoCadastrado =>
+                res.status(201).json(atendimentoCadastrado)
+            )
+            .catch(erros => res.status(400).json(erros))
+    })
 
-    app.patch('/atendimentos/:id', (req, res) =>
-        Atendimento.altera(parseInt(req.params.id), req.body)
-            .then((results) => res.json(results))
-            .catch(err => res.status(400).json(err))
-    )
+    app.patch('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+        const valores = req.body
 
-    app.delete('/atendimentos/:id', (req, res) =>
-        Atendimento.remove(parseInt(req.params.id))
-            .then((results) => res.json(results))
-            .catch(err => res.status(400).json(err))
-    )
+        Atendimento.altera(id, valores, res)
+    })
+
+    app.delete('/atendimentos/:id', (req, res) => {
+        const id = parseInt(req.params.id)
+
+        Atendimento.deleta(id, res)
+    })
 }

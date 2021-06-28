@@ -1,32 +1,30 @@
 {
-  "name": "nodejs-api-rest",
+  "name": "projeto-nodejs-rest",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/lrpatricio/alura__nodejs-api-rest-.git"
+    "url": "git+https://github.com/juunegreiros/nodejs-api-rest.git"
   },
-  "author": "lrpatricio",
+  "author": "juliana negreiros",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/lrpatricio/alura__nodejs-api-rest-/issues"
+    "url": "https://github.com/juunegreiros/nodejs-api-rest/issues"
   },
-  "homepage": "https://github.com/lrpatricio/alura__nodejs-api-rest-#readme",
+  "homepage": "https://github.com/juunegreiros/nodejs-api-rest#readme",
   "dependencies": {
-    "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
+    "axios": "^0.19.1",
     "consign": "^0.1.6",
     "express": "^4.17.1",
-    "fs": "^0.0.1-security",
-    "moment": "^2.29.1",
-    "mysql": "^2.18.1"
+    "moment": "^2.24.0",
+    "mysql": "^2.17.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^1.19.2"
   }
 }
